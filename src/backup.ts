@@ -43,9 +43,6 @@ const dumpToFile = async (path: string) => {
     exec(`pg_dump --dbname=${env.BACKUP_DATABASE_URL} --format=tar | gzip > ${path}`, (error, stdout, stderr) => {
       console.log('Error1:',error)
             console.log('Error2:',stdout)
-
-            console.log('Error3:',stderr)
-
       if (error) {
         console.log(error);
         reject({ error: error, stderr: stderr.trimEnd() });
@@ -53,8 +50,7 @@ const dumpToFile = async (path: string) => {
       }
 
       if (stderr != "") {
-        reject({ stderr: stderr.trimEnd() });
-        return;
+        console.warn({ stderr: stderr.trimEnd() });
       }
 
       console.log("Backup size:", filesize(statSync(path).size));
