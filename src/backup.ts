@@ -41,6 +41,11 @@ const dumpToFile = async (path: string) => {
 
   await new Promise((resolve, reject) => {
     exec(`pg_dump --dbname=${env.BACKUP_DATABASE_URL} --format=tar | gzip > ${path}`, (error, stdout, stderr) => {
+      console.log('Error1:',error)
+            console.log('Error2:',stdout)
+
+            console.log('Error3:',stderr)
+
       if (error) {
         console.log(error);
         reject({ error: error, stderr: stderr.trimEnd() });
