@@ -37,6 +37,7 @@ const uploadToS3 = async ({ name, path }: { name: string, path: string }) => {
 const dumpToFile = async (path: string) => {
   console.log("Dumping DB to file...");
   console.log(path);
+  console.log(env.BACKUP_DATABASE_URL);
 
   await new Promise((resolve, reject) => {
     exec(`pg_dump --dbname=${env.BACKUP_DATABASE_URL} --format=tar | gzip > ${path}`, (error, stdout, stderr) => {
